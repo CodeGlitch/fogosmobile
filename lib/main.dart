@@ -4,7 +4,9 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter/services.dart';
 
+import 'package:fogosmobile/constants/routes.dart';
 import 'package:fogosmobile/screens/assets/icons.dart';
 import 'package:fogosmobile/actions/fires_actions.dart';
 import 'package:fogosmobile/actions/preferences_actions.dart';
@@ -12,13 +14,11 @@ import 'package:fogosmobile/store/app_store.dart';
 import 'package:fogosmobile/models/app_state.dart';
 import 'package:fogosmobile/screens/home_page.dart';
 import 'package:fogosmobile/screens/settings/settings.dart';
-import 'package:flutter/services.dart';
+import 'package:fogosmobile/screens/fire_details.dart';
 
 import 'middleware/shared_preferences_manager.dart';
 
 void main() => SharedPreferencesManager.init().then((_) => runApp(new MyApp()));
-
-const SETTINGS_ROUTE = '/settings';
 
 class MyApp extends StatelessWidget {
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
@@ -48,6 +48,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           routes: <String, WidgetBuilder>{
             '$SETTINGS_ROUTE': (_) => new Settings(),
+            '$FIRE_DETAILS_ROUTE': (_) => new FireDetails(),
           },
           home: FirstPage()),
     );

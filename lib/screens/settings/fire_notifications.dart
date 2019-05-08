@@ -38,12 +38,11 @@ class _FireNotificationsState extends State<FireNotifications> {
         return new StoreConnector<AppState, SetFireNotificationActionCallBack>(
           converter: (Store<AppState> store) {
             return (String key, int value) {
-              print('$key, ${value.toString()}');
               store.dispatch(new SetFireNotificationAction(key, value));
             };
           },
           builder: (BuildContext context,
-              SetFireNotificationActionCallBack SetFireNotificationAction) {
+              SetFireNotificationActionCallBack setFireNotificationAction) {
             return new Column(
               children: <Widget>[
                 new Padding(
@@ -67,7 +66,7 @@ class _FireNotificationsState extends State<FireNotifications> {
                         trailing: IconButton(
                           icon: Icon(Icons.delete),
                           onPressed: () {
-                            SetFireNotificationAction(_subscribedFire.id, 0);
+                            setFireNotificationAction(_subscribedFire.id, 0);
                           },
                         ),
                       );

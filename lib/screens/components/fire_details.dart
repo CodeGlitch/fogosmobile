@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:redux/redux.dart';
+import 'package:share/share.dart';
+
+import 'package:fogosmobile/constants/routes.dart';
 import 'package:fogosmobile/actions/fires_actions.dart';
 import 'package:fogosmobile/models/app_state.dart';
 import 'package:fogosmobile/models/fire.dart';
 import 'package:fogosmobile/screens/utils/widget_utils.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:redux/redux.dart';
-import 'package:share/share.dart';
 import 'package:fogosmobile/actions/preferences_actions.dart';
 
 typedef SetPreferenceCallBack = Function(String key, int value);
@@ -62,36 +64,6 @@ class FireDetails extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: <Widget>[
-                                  IconButton(
-                                    icon: Icon(Icons.share),
-                                    onPressed: () {
-                                      Share.share(
-                                          'Incêndio em ${fire.city} https://fogos.pt/fogo/${fire.id}');
-                                    },
-                                  ),
-                                  SizedBox(width: 8),
-                                  new IconButton(
-                                    icon: new Icon(isFireSubscribed
-                                        ? Icons.notifications_active
-                                        : Icons.notifications_none),
-                                    onPressed: () {
-                                      setPreferenceAction(
-                                          fire.id, isFireSubscribed ? 0 : 1);
-                                    },
-                                  ),
-                                  SizedBox(width: 8),
-                                  IconButton(
-                                    icon: Icon(Icons.close),
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                      clearFireAction();
-                                    },
-                                  ),
-                                ],
-                              ),
                               Row(
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -230,6 +202,43 @@ class FireDetails extends StatelessWidget {
                                       ),
                                     ],
                                   )
+                                ],
+                              ),
+                              Padding(padding: EdgeInsets.only(top: 20.0),),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  FlatButton(
+                                    child: Text('DETALHES'),
+                                    onPressed: () {
+                                      Navigator.of(context).pushNamed(FIRE_DETAILS_ROUTE);
+                                    },
+                                  ),
+                                  IconButton(
+                                    icon: Icon(Icons.share),
+                                    onPressed: () {
+                                      Share.share(
+                                          'Incêndio em ${fire.city} https://fogos.pt/fogo/${fire.id}');
+                                    },
+                                  ),
+                                  SizedBox(width: 8),
+                                  new IconButton(
+                                    icon: new Icon(isFireSubscribed
+                                        ? Icons.notifications_active
+                                        : Icons.notifications_none),
+                                    onPressed: () {
+                                      setPreferenceAction(
+                                          fire.id, isFireSubscribed ? 0 : 1);
+                                    },
+                                  ),
+                                  SizedBox(width: 8),
+                                  IconButton(
+                                    icon: Icon(Icons.close),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                      clearFireAction();
+                                    },
+                                  ),
                                 ],
                               ),
                             ],
